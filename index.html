@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+        <title>Dingus the cat</title>
+        <style>
+            body {
+                margin: 0;
+                overflow: hidden;
+            }
+
+            canvas {
+                width: 100vw;
+                height: 100vh;
+                margin: 0;
+                padding: 0;
+            }
+
+            .credit {
+                position: sticky;
+                bottom: 30px;
+                text-align: center;
+            }
+
+            img {
+                position: absolute;
+                top: calc(50vh - 32px);
+                left: calc(50vw - 32px);
+            }
+
+            a {
+                color: #0079d1;
+                font-weight: bold;
+                text-decoration: underline 2px;
+            }
+
+            a:hover {
+                text-decoration: none;
+            }
+        </style>
+    </head>
+    <body>
+        <canvas id="display"></canvas>
+        <img id="spinner" src="/assets/spinner.gif">
+        <p class="credit"><a href="https://sketchfab.com/3d-models/dingus-the-cat-2ca7f3c1957847d6a145fc35de9046b0" target="_blank" rel="noreferrer">dingus the cat</a> by <b>bean(alwayshasbean)</b></p>
+
+        <script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>
+        <script type="importmap">
+            {
+                "imports": {
+                  "three": "https://unpkg.com/three@0.149.0/build/three.module.js",
+                  "GLTFLoader" : "https://unpkg.com/three@0.149.0/examples/jsm/loaders/GLTFLoader.js"
+                }
+            }
+        </script>
+
+        <script type="module">
+            import * as THREE from "three";
+            import { GLTFLoader } from "GLTFLoader";
+
+            const spinner = document.getElementById("spinner");
+
+            const canvas = document.getElementById("display");
+            canvas.setAttribute("width", window.innerWidth);
+            canvas.setAttribute("height", window.innerHeight);
+
+            let scene = new THREE.Scene();
+            scene.background = new THREE.Color('white');
+
+            let renderer = new THREE.WebGLRenderer({
+                canvas: canvas,
+                antialias: true
+            });
+
+            renderer.outputEncoding = THREE.sRGBEncoding;
+
+            let light = new THREE.DirectionalLight(0xffffff, 5);
+            scene.add(light);
+
+            let camera = new THREE.PerspectiveCamera(30, 1);
+            camera.position.set(0, 5, 150);
+
+            let loader = new GLTFLoader();
+            let cat = undefined;
+
+            loader.load("/assets/scene.gltf", (gltf) => {
+                function animate() {
+                    requestAnimationFrame(animate);
+                    gltf.scene.rotation.y += 0.03;
+                    renderer.render(scene, camera);
+                }
+
+                spinner.style.display = "none";
+                scene.add(gltf.scene);
+                animate();
+            });
+
+            window.onresize = () => {
+                spinner.style.display = "block";
+                location.reload();
+            };
+        </script>
+    </body>
+</html>

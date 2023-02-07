@@ -1,0 +1,11 @@
+.gitattributes text eol=lf
+
+*.html text eol=lf
+*.txt  text eol=lf
+*.md   text eol=lf
+
+*.bin  binary
+*.gltf binary
+*.gif  binary
+*.jpeg binary
+*.png  binary
