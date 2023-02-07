@@ -3,6 +3,13 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+        <meta name="keywords" content="Dingus the cat, cat, meow">
+        <meta name="description" content="Meow.">
+        <meta name="theme-color" content="#fffaf0">
+        <meta property="og:type" content="website">
+        <meta property="og:locale" content="en_US">
+        <meta property="og:title" content="Dingus the cat">
+        <meta property="og:description" content="Meow.">
         <title>Dingus the cat</title>
         <style>
             body {
@@ -66,7 +73,7 @@
             canvas.setAttribute("height", window.innerHeight);
 
             let scene = new THREE.Scene();
-            scene.background = new THREE.Color('white');
+            scene.background = new THREE.Color(0xfffaf0);
 
             let renderer = new THREE.WebGLRenderer({
                 canvas: canvas,
